@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: '*',
+        origin: 'https://it-moments-frontend.vercel.app',
         methods: ['GET', 'POST'],
         credentials: true,
     },
