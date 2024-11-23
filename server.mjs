@@ -35,7 +35,7 @@ const startServer = async () => {
 
         // Cấu hình middlewares
         app.use(cors({
-            origin: 'https://it-moments-frontend-trhgatu-trhgatus-projects.vercel.app',
+            origin: 'https://it-moments-frontend.vercel.app',
             credentials: true,
         }));
 
