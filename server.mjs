@@ -69,9 +69,14 @@ const startServer = async () => {
                         console.error('Không tìm thấy userId trong token');
                         return;
                     }
-                    usersSocket[userId] = socket.id;
-                    console.log(`User ${userId} connected with socket ID ${socket.id}`);
 
+                    if(!usersSocket[userId]) {
+                        usersSocket[userId] = [];
+                    }
+
+                    // Lưu socket.id mới
+                    usersSocket[userId].push(socket.id);
+                    console.log(`User ${userId} connected with socket ID ${socket.id}`);
                 } catch(error) {
                     console.error('Lỗi xác thực token:', error);
                 }
@@ -79,15 +84,14 @@ const startServer = async () => {
 
             socket.on('disconnect', () => {
                 for(const userId in usersSocket) {
-                    if(usersSocket[userId] === socket.id) {
+                    usersSocket[userId] = usersSocket[userId].filter(id => id !== socket.id);
+                    if(usersSocket[userId].length === 0) {
                         delete usersSocket[userId];
-                        break;
                     }
                 }
                 console.log('User disconnected: ' + socket.id);
             });
         });
-
     } catch(error) {
         console.error('Lỗi khi kết nối cơ sở dữ liệu:', error);
     }
