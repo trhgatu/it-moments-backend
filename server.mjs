@@ -10,7 +10,7 @@ import adminRoutes from './api/v1/routes/admin/index.route.js';
 import clientRouter from './api/v1/routes/client/index.route.js';
 import cookieParser from 'cookie-parser';
 import { prefixAdmin } from './config/system.js';
-import jwt from 'jsonwebtoken';  // Thêm jwt để xác thực token nếu cần
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -23,6 +23,11 @@ const io = new Server(httpServer, {
         methods: ['GET', 'POST'],
         credentials: true,
     },
+    /* cors: {
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST'],
+        credentials: true,
+    }, */
 });
 export const usersSocket = {};
 const startServer = async () => {
@@ -38,7 +43,10 @@ const startServer = async () => {
             origin: 'https://it-moments-frontend.vercel.app',
             credentials: true,
         }));
-
+        /* app.use(cors({
+            origin: 'http://localhost:5173',
+            credentials: true,
+        })); */
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(express.json());
         app.use(cookieParser());  // Đảm bảo cookieParser được sử dụng
