@@ -19,7 +19,7 @@ const port = process.env.PORT || 3000;
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: 'https://it-moments-frontend.vercel.app',
+        origin: 'https://it-moments.vercel.app',
         methods: ['GET', 'POST'],
         credentials: true,
     },
@@ -40,7 +40,7 @@ const startServer = async () => {
 
         // Cấu hình middlewares
         app.use(cors({
-            origin: 'https://it-moments-frontend.vercel.app',
+            origin: 'https://it-moments.vercel.app',
             credentials: true,
         }));
         /* app.use(cors({
